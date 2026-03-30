@@ -1,4 +1,4 @@
-package model;
+package edu.unlar.ar.model;
 
 public class Estudiante{
     private String legajo;

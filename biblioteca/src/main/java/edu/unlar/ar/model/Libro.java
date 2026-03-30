@@ -1,4 +1,4 @@
-package model;
+package edu.unlar.ar.model;
 
 public class Libro {
     private String isbn;
