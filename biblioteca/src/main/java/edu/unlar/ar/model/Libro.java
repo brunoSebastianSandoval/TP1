@@ -16,6 +16,10 @@ public class Libro {
         this.disponible = true;
     }
 
+    public Libro(Object isbn2, String titulo2, String autor2, int anio2) {
+        
+    }
+
     public String getIsbn() {
         return isbn;
     }
