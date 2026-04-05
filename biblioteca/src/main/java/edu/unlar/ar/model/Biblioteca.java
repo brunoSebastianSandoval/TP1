@@ -1,59 +1,58 @@
 package edu.unlar.ar.model;
-
-import java.util.ArrayList;
+import java.util.*;
 
 public class Biblioteca {
-    private ArrayList<Libro> listaLibros;
-    private ArrayList<Estudiante> listaEstudiantes;
-    private ArrayList<Prestamo> listaPrestamos;
+    private List<Libro> catalogo;                 
+    private Map<String, Estudiante> registro;      
+    private Set<Prestamo> prestamosActivos;        
 
     public Biblioteca() {
-        this.listaLibros = new ArrayList<>();
-        this.listaEstudiantes = new ArrayList<>();
-        this.listaPrestamos = new ArrayList<>();
+        this.catalogo = new ArrayList<>();
+        this.registro = new HashMap<>();
+        this.prestamosActivos = new HashSet<>();
     }
 
-    // Agrega un libro al inventario
-    public void registrarLibro(Libro libro) {
-        listaLibros.add(libro);
+    public void registrarEstudiante(Estudiante e) {
+        registro.put(e.getLegajo(), e); // El HashMap usa el legajo como clave.
     }
 
-    // Agrega un estudiante al sistema
-    public void registrarEstudiante(Estudiante est) {
-        listaEstudiantes.add(est);
+    public void registrarLibro(Libro l) {
+        catalogo.add(l);
     }
 
-    // Busca un libro por su ISBN (Retorna null si no existe)
+    // Multa
+    // Calcula 1% por día, máximo 30 días calculables 
+    public double calcularMulta(int diasRetraso, double valorLibro) {
+        if (diasRetraso <= 0 || diasRetraso > 30) {
+            return 0; // Caso base o límite de la pila [cite: 43, 44]
+        }
+        return (valorLibro * 0.01) + calcularMulta(diasRetraso - 1, valorLibro);
+    }
+
+    public void mostrarLibros() {
+        for (Libro l : catalogo) {
+            System.out.println(l.toString()); // Usa el toString del modelo [cite: 48]
+        }
+    }
+    // Requisito 2.4: Búsqueda de libros en el catálogo
     public Libro buscarLibro(String isbn) {
-        for (Libro l : listaLibros) {
+        for (Libro l : catalogo) {
             if (l.getIsbn().equals(isbn)) {
                 return l;
             }
         }
-        return null;
+        return null; // Si no se encuentra el ISBN [cite: 30]
     }
 
-    // Muestra todos los libros y su disponibilidad
-    public void mostrarLibros() {
-        System.out.println("\n--- Listado de Libros ---");
-        for (Libro l : listaLibros) {
-            String estado = l.isDisponible() ? "[Disponible]" : "[En prestamo]";
-            System.out.println(estado + " " + l.getTitulo() + " (ISBN: " + l.getIsbn() + ")");
+    // Requisito 2.4 y 3.4: Lógica de préstamo
+    public void realizarPrestamo(Libro libro, Estudiante estudiante) {
+        // Validar que el libro no sea null y esté disponible 
+        if (libro != null && libro.isDisponible()) {
+            libro.setDisponible(false); // Cambia estado 
+            prestamosActivos.add(new Prestamo(libro, estudiante)); // HashSet 
+            System.out.println("Préstamo registrado con éxito."); 
+        } else {
+            System.out.println("Error: El libro no está disponible."); 
         }
     }
-    // Registra un prestamo vinculando libro y estudiante
-public void realizarPrestamo(Libro libro, Estudiante estudiante) {
-    if (libro != null && libro.isDisponible()) {
-        // Cambiamos el estado del objeto libro
-        libro.setDisponible(false);
-        
-        // Creamos la instancia de Prestamo y la guardamos
-        Prestamo nuevoPrestamo = new Prestamo(libro, estudiante);
-        listaPrestamos.add(nuevoPrestamo);
-        
-        System.out.println("Prestamo exitoso: " + libro.getTitulo() + " a " + estudiante.getNombre());
-    } else {
-        System.out.println("No se pudo realizar el prestamo. El libro no esta disponible o no existe.");
-    }
-}
 }
