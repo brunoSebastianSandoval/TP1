@@ -5,5 +5,5 @@ Este proyecto es el desarrollo del **Trabajo Práctico Nº 1.1** para la cátedr
 ## 👥 Integrantes
 * **Bruno Sebastian Sandoval** - Ingeniería en Sistemas de Información (UNLaR)
 * **Valentino Lemor** - Ingeniería en Sistemas de Información (UNLaR)
-diagrama de clases del Sistema:
+## diagrama de clases del Sistema:
   ![Diagrama de Clases UML](./biblioteca/diagrama.png)
