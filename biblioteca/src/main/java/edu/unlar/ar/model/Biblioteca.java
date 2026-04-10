@@ -33,7 +33,7 @@ public class Biblioteca {
 
     public void mostrarLibros() {
         for (Libro l : catalogo) {
-            System.out.println(l.toString()); // Usa el toString del modelo [cite: 48]
+            System.out.println(l.toString()); // Usa el toString del modelo 
         }
     }
 

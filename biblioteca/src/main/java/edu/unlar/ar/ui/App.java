@@ -62,7 +62,7 @@ public class App {
             System.out.println("Error inesperado: " + e.getMessage());
         }
 
-        // 3. Demostración de Multa Recursiva  
+        // Demostración de Multa Recursiva  
         System.out.println("\n--- Prueba de Multa ---");
         double multaTotal = control.calcularMulta(15, 5000.0); // 15 días, libro de $5000 
         System.out.println("La multa por 15 dias de retraso es: $" + multaTotal); 
