@@ -14,6 +14,45 @@ public class Prestamo {
         this.fechaPrestamo = LocalDate.now();
         this.fechaDevolucion = null; // Se asigna al devolver
     }
+    
+
+    public Libro getLibro() {
+        return libro;
+    }
+
+
+    public void setLibro(Libro libro) {
+        this.libro = libro;
+    }
+
+
+    public void setEstudiante(Estudiante estudiante) {
+        this.estudiante = estudiante;
+    }
+
+
+    public LocalDate getFechaPrestamo() {
+        return fechaPrestamo;
+    }
+
+
+    public void setFechaPrestamo(LocalDate fechaPrestamo) {
+        this.fechaPrestamo = fechaPrestamo;
+    }
+
+
+    public LocalDate getFechaDevolucion() {
+        return fechaDevolucion;
+    }
+
+
+    public void setFechaDevolucion(LocalDate fechaDevolucion) {
+        this.fechaDevolucion = fechaDevolucion;
+    }
+    public Estudiante getEstudiante() {
+        return estudiante;
+    }
+
 
     //  equals y hashCode para el HashSet 
     @Override
@@ -34,4 +73,6 @@ public class Prestamo {
     public String toString() { 
         return "Prestamo: " + libro.getTitulo() + " a " + estudiante.getNombre();
     }
+
+    
 }

@@ -1,5 +1,7 @@
 package edu.unlar.ar.model;
 import java.util.*;
+import edu.unlar.ar.exception.LibroNoDisponible;
+import edu.unlar.ar.exception.LimitePrestamosExcedido;
 
 public class Biblioteca {
     private List<Libro> catalogo;                 
@@ -34,25 +36,44 @@ public class Biblioteca {
             System.out.println(l.toString()); // Usa el toString del modelo [cite: 48]
         }
     }
-    // Requisito 2.4: Búsqueda de libros en el catálogo
-    public Libro buscarLibro(String isbn) {
+
+    // Búsqueda de libros por titulo
+    public List<Libro> buscarLibroTitulo (String titulo) {
+        List<Libro> resultados = new ArrayList<>();
         for (Libro l : catalogo) {
-            if (l.getIsbn().equals(isbn)) {
-                return l;
+            if (l.getTitulo().toLowerCase().contains(titulo.toLowerCase())){
+                resultados.add(l);
             }
         }
-        return null; // Si no se encuentra el ISBN [cite: 30]
+        return resultados;
     }
 
-    // Requisito 2.4 y 3.4: Lógica de préstamo
-    public void realizarPrestamo(Libro libro, Estudiante estudiante) {
+    // Lógica de préstamo
+    public void realizarPrestamo(Libro libro, Estudiante estudiante) throws LibroNoDisponible, LimitePrestamosExcedido {
         // Validar que el libro no sea null y esté disponible 
-        if (libro != null && libro.isDisponible()) {
-            libro.setDisponible(false); // Cambia estado 
-            prestamosActivos.add(new Prestamo(libro, estudiante)); // HashSet 
-            System.out.println("Préstamo registrado con éxito."); 
-        } else {
-            System.out.println("Error: El libro no está disponible."); 
+        if (libro == null || !libro.isDisponible()) {
+            throw new LibroNoDisponible("El libro no está disponible para préstamo.");
         }
+
+        // Validación de límite de préstamos por estudiante
+        long count = prestamosActivos.stream()
+            .filter(p -> p.getEstudiante().equals(estudiante))
+            .count();
+
+        if (count >= 3) {
+            throw new LimitePrestamosExcedido("El estudiante ya alcanzo el limite de 3 prestamos");
+        }
+
+        // si todo esta bien
+        libro.setDisponible(false);
+        prestamosActivos.add(new Prestamo(libro, estudiante));
+        System.out.println("Prestamo registrado con exito.");
     }
+
+    // registro de devolucion
+    public void registrarDevolucion(Libro libro) {
+        libro.setDisponible(true);
+        System.out.println("libro devuelto y disponible."); 
+    }
+
 }
