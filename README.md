@@ -1,6 +1,6 @@
 # Sistema de Gestión de Biblioteca Universitaria - UNLaR
 
-Este proyecto es el desarrollo del **Trabajo Práctico Nº 1.1** para la cátedra de **Programación III**. Consiste en un sistema de gestión bibliotecaria que aplica conceptos de Programación Orientada a Objetos, manejo de colecciones y recursividad.
+Este proyecto es el desarrollo del **Trabajo Práctico Nº 1.1** para la cátedra de **Programación III**. Consiste en un sistema de gestión bibliotecaria que aplica conceptos de Programación Orientada a Objetos.
 
 ## 👥 Integrantes
 * **Bruno Sebastian Sandoval** - Ingeniería en Sistemas de Información
